@@ -6,6 +6,7 @@ a simple chat application with react and node js
 ```
 npm install
 npm start
-npm startServer
+npm run startServer
 open http://localhost:3000
 ```
+npm start
