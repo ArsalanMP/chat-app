@@ -1,5 +1,5 @@
 import React from 'react';
-import css from './MessageList.styl';
+import Message from './Message';
 
 const Component = React.Component;
 
@@ -13,11 +13,9 @@ export default class MessageList extends Component {
     return (
       <div>
         {
-          this.props.list.map(function(message, index) {
+          this.props.list.map((message, index)=> {
             return(
-              <div>
-                <div className={css.message} key={index}>{message.user +' : '+message.message}</div>
-              </div>
+              <Message message={message} user={this.props.user} key={index}/>
             );
           })
         }

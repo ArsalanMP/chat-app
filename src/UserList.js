@@ -1,5 +1,5 @@
 import React from 'react';
-import css from './UserList.styl';
+import User from './User'
 
 const Component = React.Component;
 
@@ -10,15 +10,12 @@ export default class UserList extends Component {
   }
 
   render(){
-    console.log(this.props.list);
     return (
       <div>
         {
-          this.props.list.map(function(user, index) {
+          this.props.list.map((user, index)=> {
             return(
-              <div>
-                <div className={css.message} key={index}>{user.name }</div>
-              </div>
+              <User key={index} currentUser={this.props.user} user={user}/>
             );
           })
         }

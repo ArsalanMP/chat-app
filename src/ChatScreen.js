@@ -35,12 +35,9 @@ export default class Page extends Component {
     });
 
     this.socket.on('userDisconnected',(user) => {
-        console.log(user.name + " dic")
-        let users = this.state.users;
-        var index = users.indexOf(user);
-        if(index > -1) {
-          users.splice(index , 1);
-        }
+        let users = this.state.users.filter(function(el) {
+            return (el.name !== user.name || el.avatar !== user.avatar );
+        });
         this.setState({users : users});
     });
 
@@ -58,6 +55,7 @@ export default class Page extends Component {
   onSendMessage = (event) => {
     if (event.key === 'Enter') {
       let message = this.state.msgText;
+      this.setState({msgText : ''});
       if(message.length > 0) {
           this.socket.emit('message' , {
               message : message ,
@@ -73,8 +71,7 @@ export default class Page extends Component {
       <div>
         <div className={css.column}>
           <div>
-            Online users
-            <UserList list= {this.state.users}/>
+            <UserList list= {this.state.users} user={this.props.user}/>
           </div>
         </div>
         <div className={css.container}>
@@ -82,7 +79,7 @@ export default class Page extends Component {
             <input className={css.myInput} onKeyUp={ this.onSendMessage } onChange={ this.onUserInput } value={ this.state.msgText } placeholder='Enter your message' />
           </div>
           <div className={css.listDiv}>
-            <MessageList list= {this.state.messages}/>
+            <MessageList list= {this.state.messages} user={this.props.user}/>
           </div>
         </div>
       </div>

@@ -23,19 +23,22 @@ io.on('connection', (socket) => {
     users.push(user);
     io.sockets.emit("userConnected", user);
     socket['_user'] = user ;
-    console.log(user.name + ' joned the room');
+    console.log(user.name + ' joined the room');
     getData((data)=> {
       res(data , users);
     });
   });
 
   socket.on("disconnect", () => {
-    console.log(socket._user.name +' left the room');
-    var index = users.indexOf(socket._user);
-    if(index > -1) {
-      users.splice(index , 1);
+    let user = socket._user;
+    if(user !== undefined) {
+      console.log(user.name +' left the room');
+      let newusers = users.filter(function(el) {
+        return (el.name !== user.name || el.avatar !== user.avatar );
+      });
+      users = newusers ;
+      io.sockets.emit("userDisconnected", socket._user);
     }
-    io.sockets.emit("userDisconnected", socket._user);
   });
 
 });

@@ -26,7 +26,7 @@ export default class App extends Component {
   renderFirstPage = () => {
     if(this.state.username !== 'guest') {
       return (
-        <ChatScreen user={{name : this.state.username , avatar : this.state.avatar}}/>
+        <ChatScreen user={{name : this.state.username , avatar : this.state.avatar , date : Date.now()}}/>
       );
     } else {
       return (

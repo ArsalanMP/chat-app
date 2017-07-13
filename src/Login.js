@@ -30,8 +30,10 @@ export default class Login extends Component {
             <img className={css.avatar} src={this.state.avatar} alt={this.state.username}/>
           </div>
           <div className={css.formContainer}>
-            <input className={ css.myInput } onChange={ this.onUserInput } value={ this.state.inputValue } placeholder='Enter Username'/>
-            <div className={ css.myBtn } onClick={ this.onSubmitName }>Login</div>
+            <form onSubmit={this.onSubmitName}>
+              <input className={ css.myInput } onChange={ this.onUserInput } value={ this.state.inputValue } placeholder='Enter Username'/>
+              <div className={ css.myBtn } onClick={ this.onSubmitName }>Login</div>
+            </form>
           </div>
         </div>
       </div>
