@@ -1,6 +1,7 @@
 import React from 'react';
 import ChatScreen from './ChatScreen';
 import Login from './Login';
+import css from './App.styl'
 
 const Component = React.Component;
 
@@ -9,7 +10,8 @@ export default class App extends Component {
   constructor(prop) {
     super(prop);
     this.state = {
-      username : 'guest'
+      username : 'guest',
+      avatar : 'https://www.jinlisting.com/wp-content/themes/pointfinder/images/empty_avatar.jpg'
     }
   }
 
@@ -17,18 +19,18 @@ export default class App extends Component {
     return this.renderFirstPage();
   }
 
-  setUser = (username)=> {
-    this.setState({username : username});
+  setUpdate = (update)=> {
+    this.setState(update);
   }
 
   renderFirstPage = () => {
     if(this.state.username !== 'guest') {
       return (
-        <ChatScreen username={this.state.username}/>
+        <ChatScreen user={{name : this.state.username , avatar : this.state.avatar}}/>
       );
     } else {
       return (
-        <Login setUser={this.setUser}/>
+        <Login setUpdate={this.setUpdate}/>
       );
     }
   }

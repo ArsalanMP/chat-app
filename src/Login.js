@@ -9,7 +9,8 @@ export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      username: 'a',
+      username: '',
+      avatar: toonavatar.generate_avatar()
     }
   }
 
@@ -18,7 +19,7 @@ export default class Login extends Component {
   }
 
   onSubmitName = () => {
-    this.props.setUser(this.state.username);
+    this.props.setUpdate({username : this.state.username , avatar : this.state.avatar});
   }
 
   render(){
@@ -26,7 +27,7 @@ export default class Login extends Component {
       <div className={css.back}>
         <div className={css.container}>
           <div className={css.avatarContainer}>
-            <img className={css.avatar} src={toonavatar.generate_avatar()} alt={this.state.username}/>
+            <img className={css.avatar} src={this.state.avatar} alt={this.state.username}/>
           </div>
           <div className={css.formContainer}>
             <input className={ css.myInput } onChange={ this.onUserInput } value={ this.state.inputValue } placeholder='Enter Username'/>

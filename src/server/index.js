@@ -2,7 +2,8 @@ let express = require('express')
 let app = express();
 let http = require('http').Server(app);
 let io = require('socket.io')(http);
-var fs = require('fs');
+let fs = require('fs');
+let users = [];
 
 io.on('connection', (socket) => {
 
@@ -18,11 +19,23 @@ io.on('connection', (socket) => {
     console.log(message);
   });
 
-  socket.on("getAllMessages", (message, res) => {
+  socket.on("getAllMessages", (user, res) => {
+    users.push(user);
+    io.sockets.emit("userConnected", user);
+    socket['_user'] = user ;
+    console.log(user.name + ' joned the room');
     getData((data)=> {
-      console.log('data :' + data);
-      res(data);
-    })
+      res(data , users);
+    });
+  });
+
+  socket.on("disconnect", () => {
+    console.log(socket._user.name +' left the room');
+    var index = users.indexOf(socket._user);
+    if(index > -1) {
+      users.splice(index , 1);
+    }
+    io.sockets.emit("userDisconnected", socket._user);
   });
 
 });

@@ -1,9 +1,9 @@
 import React from 'react';
-import css from './List.styl';
+import css from './MessageList.styl';
 
 const Component = React.Component;
 
-export default class List extends Component {
+export default class MessageList extends Component {
 
   constructor(prop) {
     super(prop);
