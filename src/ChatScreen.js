@@ -20,19 +20,19 @@ export default class Page extends Component {
   componentDidMount() {
     this.socket = io('http://localhost:3001');
 
-    this.socket.emit('getAllMessages', this.props.user ,(data , users) => {
-      this.setState({messages : JSON.parse(data).messages , users : users });
+    this.socket.emit('getAllMessages', this.props.user, (data, users) => {
+      this.setState({ messages: data.messages, users });
       this.refs.endoflist.scrollIntoView();
     });
 
-    this.socket.on('onlineUsers',(data) => {
-      this.setState({users : data });
+    this.socket.on('onlineUsers', (users) => {
+      this.setState({ users });
     });
 
-    this.socket.on('userConnected',(user) => {
+    this.socket.on('userConnected', (user) => {
         let users = this.state.users;
         users.push(user);
-        this.setState({users : users});
+        this.setState({ users: users });
     });
 
     this.socket.on('userDisconnected',(user) => {
@@ -57,12 +57,12 @@ export default class Page extends Component {
   onSendMessage = (event) => {
     if (event.key === 'Enter') {
       let message = this.state.msgText;
-      this.setState({msgText : ''});
+      this.setState({ msgText: '' });
       if(message.length > 0) {
-          this.socket.emit('message' , {
-              message : message ,
-              user : this.props.user ,
-              date : Date.now()
+          this.socket.emit('message', {
+              message: message,
+              user: this.props.user,
+              date: Date.now()
           });
       }
     }

@@ -10,18 +10,21 @@ export default class Message extends Component {
   }
 
   render(){
-    let style = css.messageContainer ;
-    if(this.props.user.name === this.props.message.user.name &&
-       this.props.user.avatar === this.props.message.user.avatar)
+    let style = css.messageContainer;
+    let { user, message, date } = this.props.message;
+
+    if(this.props.user.name === user.name &&
+       this.props.user.avatar === user.avatar)
       style = css.myMessageContainer;
+
     return (
       <div className={css.container}>
-        <img className={css.avatar} src={this.props.message.user.avatar} alt={this.props.message.user.name}/>
+        <img className={css.avatar} src={user.avatar} alt={user.name}/>
         <div className={style}>
-          <div className={css.username}>{this.props.message.user.name}</div>
-          <div className={css.message}>{this.props.message.message}</div>
+          <div className={css.username}>{user.name}</div>
+          <div className={css.message}>{message}</div>
         </div>
-        <div className={css.date}>{new Date(this.props.message.date).toLocaleString()}</div>
+        <div className={css.date}>{new Date(date).toLocaleString()}</div>
       </div>
     );
   }
