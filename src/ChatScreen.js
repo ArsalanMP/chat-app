@@ -22,6 +22,7 @@ export default class Page extends Component {
 
     this.socket.emit('getAllMessages', this.props.user ,(data , users) => {
       this.setState({messages : JSON.parse(data).messages , users : users });
+      this.refs.endoflist.scrollIntoView();
     });
 
     this.socket.on('onlineUsers',(data) => {
@@ -45,6 +46,7 @@ export default class Page extends Component {
         let messages = this.state.messages;
         messages.push(msg);
         this.setState({messages : messages});
+        this.refs.endoflist.scrollIntoView();
     });
   }
 
@@ -80,6 +82,7 @@ export default class Page extends Component {
           </div>
           <div className={css.listDiv}>
             <MessageList list= {this.state.messages} user={this.props.user}/>
+            <div ref='endoflist'/>
           </div>
         </div>
       </div>
