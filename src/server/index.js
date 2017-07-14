@@ -9,12 +9,10 @@ io.on('connection', (socket) => {
 
   socket.on("message", (message) => {
     io.sockets.emit("serverMessage", message);
-    getData((data)=>{
+    getData((data) => {
       let messages = JSON.parse(data).messages ;
       messages.push(message);
-      writeData({
-        messages : messages
-      });
+      writeData({ messages });
     });
     console.log(message);
   });
@@ -22,10 +20,10 @@ io.on('connection', (socket) => {
   socket.on("getAllMessages", (user, res) => {
     users.push(user);
     io.sockets.emit("userConnected", user);
-    socket['_user'] = user ;
+    socket['_user'] = user;
     console.log(user.name + ' joined the room');
-    getData((data)=> {
-      res(data , users);
+    getData((data) => {
+      res(JSON.parse(data), users);
     });
   });
 
@@ -40,23 +38,20 @@ io.on('connection', (socket) => {
       io.sockets.emit("userDisconnected", socket._user);
     }
   });
-
 });
 
 function getData(callback) { 
     fs.readFile('./src/server/messages.txt', 'utf8', function (err, data) {
         if (err) throw err;
         callback(data);
-        }
-    );
+    });
 }
 
 function writeData( newData) {
-    fs.writeFile ('./src/server/messages.txt', JSON.stringify(newData) , function(err) {
+    fs.writeFile('./src/server/messages.txt', JSON.stringify(newData), function(err) {
         if (err) throw err;
-            console.log('complete');
-        }
-    );
+        console.log('complete');
+    });
 }
 
 http.listen(3001, function(){

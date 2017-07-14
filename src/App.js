@@ -19,14 +19,14 @@ export default class App extends Component {
     return this.renderFirstPage();
   }
 
-  setUpdate = (update)=> {
+  setUpdate = (update) => {
     this.setState(update);
   }
 
   renderFirstPage = () => {
     if(this.state.username !== 'guest') {
       return (
-        <ChatScreen user={{name : this.state.username , avatar : this.state.avatar , date : Date.now()}}/>
+        <ChatScreen user={{ name: this.state.username, avatar: this.state.avatar, date: Date.now() }}/>
       );
     } else {
       return (
