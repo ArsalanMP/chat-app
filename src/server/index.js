@@ -42,15 +42,24 @@ io.on('connection', (socket) => {
 
 function getData(callback) { 
     fs.readFile('./src/server/messages.txt', 'utf8', function (err, data) {
-        if (err) throw err;
+        if (err) {
+          if (err.code === 'ENOENT') {
+            writeData({ messages: [] }, () => {
+              callback(JSON.stringify({ messages: [] }));
+            }); // create the file if not exists
+            return;
+          } else {
+            throw err;
+          }
+        }
         callback(data);
     });
 }
 
-function writeData( newData) {
+function writeData(newData, done) {
     fs.writeFile('./src/server/messages.txt', JSON.stringify(newData), function(err) {
         if (err) throw err;
-        console.log('complete');
+        if (done) done();
     });
 }
 
