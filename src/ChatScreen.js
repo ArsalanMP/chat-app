@@ -20,7 +20,7 @@ export default class Page extends Component {
   componentDidMount() {
     this.socket = io('http://localhost:3001');
 
-    this.socket.emit('getAllMessages', this.props.user, (data, users) => {
+    this.socket.emit('functionCall' , { fn:'getAllMessages' , data : this.props.user }, (data, users) => {
       this.setState({ messages: data.messages, users });
       this.refs.endoflist.scrollIntoView();
     });
@@ -59,11 +59,12 @@ export default class Page extends Component {
       let message = this.state.msgText;
       this.setState({ msgText: '' });
       if(message.length > 0) {
-          this.socket.emit('message', {
-              message: message,
-              user: this.props.user,
-              date: Date.now()
-          });
+        let messageJson = {
+          message: message,
+          user: this.props.user,
+          date: Date.now()
+        };
+        this.socket.emit('functionCall' , { fn : 'message' , data : messageJson });
       }
     }
   }
