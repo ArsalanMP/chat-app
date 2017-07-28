@@ -2,6 +2,7 @@ let express = require('express');
 let app = express();
 let http = require('http').Server(app);
 let io = require('socket.io')(http);
+require('./intiMongoService');
 global.users = [];
 
 io.on('connection', (socket) => {

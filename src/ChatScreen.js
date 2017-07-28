@@ -20,8 +20,8 @@ export default class Page extends Component {
   componentDidMount() {
     this.socket = io('http://localhost:3001');
 
-    this.socket.emit('functionCall' , { fn:'getAllMessages' , data : this.props.user }, (data, users) => {
-      this.setState({ messages: data.messages, users });
+    this.socket.emit('functionCall' , { fn:'getAllMessages' , data : this.props.user }, (messages, users) => {
+      this.setState({ messages: messages, users });
       this.refs.endoflist.scrollIntoView();
     });
 
