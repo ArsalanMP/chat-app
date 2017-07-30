@@ -2,7 +2,7 @@
 import { AppContainer } from 'react-hot-loader';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from '../App.js';
+import App from '../App.ls';
 
 /*
   We use JSX here to only demonstrate that we support it ;)
@@ -25,4 +25,4 @@ const render = Component =>
 
 render(App);
 
-if (module.hot) module.hot.accept('../App.js', () => render(App));
+if (module.hot) module.hot.accept('../App.ls', () => render(App));
