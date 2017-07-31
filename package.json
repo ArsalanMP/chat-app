@@ -4,7 +4,7 @@
   "description": "Simple Chat application using react and socket.io",
   "scripts": {
     "start": "webpack-dev-server --progress",
-    "startServer": "nodemon ./src/server/index.js",
+    "startServer": "nodemon --exec lsc ./src/server/index.ls",
     "lint": "eslint src",
     "prebuild": "rimraf dist",
     "build": "cross-env NODE_ENV=production webpack -p --config webpack.config.production.js",
