@@ -16,10 +16,10 @@ functionCall = (params , socket, io , response) ->
 disconnect = (socket , io) -> 
   user = socket._user;
   if user?
-    console.log user.name +' left the room'
-    newusers = users.filter (el) ->
+    console.log (user.name + ' left the room')
+    newusers = global.users.filter (el) ->
       el.name isnt user.name or el.avatar isnt user.avatar
-    users = newusers 
+    global.users = newusers 
     io.sockets.emit "userDisconnected", socket._user
 
 http.listen 3001, ->
